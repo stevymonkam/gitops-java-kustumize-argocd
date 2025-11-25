@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prod-project
+  namespace: argocd
+spec:
+  description: Projet Angular + Java Spring Boot + mysql
+  clusterResourceWhitelist:
+  - group: ""
+    kind: '*'
+  destinations:
+  - namespace: prod
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: ""
+    kind: '*'
+  - group: "apps"
+    kind: "Deployment"
+  sourceRepos:
+  - https://github.com/stevymonkam/kubernetes-argocd-angular-javasprintboot.git

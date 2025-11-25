@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dev
+resources:
+- ../../base
+patchesStrategicMerge:
+- service-patch.yaml
+replicas:
+- count: 5
+  name: calculator-app
+# Surcharge de l'image
+images:
+- name: stevymonkam/calculator-prod # remplacez par le nom dans votre deployment base
+  newName: stevymonkam/calculator-prod
+  newTag: 115-unstable   
+
+
+#nb : pour que l'asyc sur arco fonctione il faut changer le nom
+# de l'image que la pipeline a ecrit par le nom de l'image qui est 
+# dans base voir exemple dans overlays/dev/kustomization.yaml
+# donc remplacer calculator-app-dev par stevymonkam/calculator-prod
